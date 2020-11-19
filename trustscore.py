@@ -80,7 +80,7 @@ class TrustScore:
     self.kdtrees = [None] * self.n_labels
     if self.filtering == "uncertainty":
       X_filtered, y_filtered = self.filter_by_uncertainty(X, y)
-    for label in xrange(self.n_labels):
+    for label in range(self.n_labels):
       if self.filtering == "none":
         X_to_use = X[np.where(y == label)[0]]
         self.kdtrees[label] = KDTree(X_to_use)
@@ -110,7 +110,7 @@ class TrustScore:
     the predicted class to the distance to the predicted class.
     """
     d = np.tile(None, (X.shape[0], self.n_labels))
-    for label_idx in xrange(self.n_labels):
+    for label_idx in range(self.n_labels):
       d[:, label_idx] = self.kdtrees[label_idx].query(X, k=2)[0][:, -1]
 
     sorted_d = np.sort(d, axis=1)
